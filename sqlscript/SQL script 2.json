@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 2",
+	"properties": {
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'testdb')\nBEGIN\n    CREATE DATABASE testdb;\nEND\nGO\n\nUSE testdb;\nGO\n\n-- Create the Users table\nCREATE TABLE [users] (\n    UserID INT PRIMARY KEY,\n    UserName NVARCHAR(100) NOT NULL,\n    Email NVARCHAR(100) NOT NULL,\n    RegistrationDate DATE NOT NULL DEFAULT GETDATE()\n);\nGO\n\n-- Create the Orders table\nCREATE TABLE Orders (\n    OrderID INT PRIMARY KEY,\n    UserID INT FOREIGN KEY REFERENCES Users(UserID),\n    OrderDate DATE NOT NULL DEFAULT GETDATE(),\n    OrderAmount DECIMAL(10, 2) NOT NULL\n);\nGO\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "testdb",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
